@@ -69,25 +69,38 @@ namespace UnityChess
 
         public void SetStartingPosition(bool is960 = false)
         {
+            ClearBoard();
+
+            //Row 2/Rank 7 and Row 7/Rank 2, both rows of pawns
+            for (int file = 1; file <= 8; file++)
+            {
+                foreach (int rank in new[] { 2, 7 })
+                {
+                    Square position = new Square(file, rank);
+                    Side pawnColor = rank == 2 ? Side.White : Side.Black;
+                    this[position] = new Pawn(position, pawnColor);
+                }
+            }
+
             if (is960)
             {
+                //Rows 1 & 8/Ranks 8 & 1, back rows for both players
+                for (int file = 1; file <= 8; file++)
+                {
+                    foreach (int rank in new[] { 1, 8 })
+                    {
+                        Square position = new Square(file, rank);
+                        Side pieceColor = rank == 1 ? Side.White : Side.Black;
 
+                        
+                    }
+                }
             }
             else
             {
-                ClearBoard();
-
-                //Row 2/Rank 7 and Row 7/Rank 2, both rows of pawns
-                for (int file = 1; file <= 8; file++)
-                    foreach (int rank in new[] { 2, 7 })
-                    {
-                        Square position = new Square(file, rank);
-                        Side pawnColor = rank == 2 ? Side.White : Side.Black;
-                        this[position] = new Pawn(position, pawnColor);
-                    }
-
                 //Rows 1 & 8/Ranks 8 & 1, back rows for both players
                 for (int file = 1; file <= 8; file++)
+                {
                     foreach (int rank in new[] { 1, 8 })
                     {
                         Square position = new Square(file, rank);
@@ -114,6 +127,7 @@ namespace UnityChess
                                 break;
                         }
                     }
+                }
 
                 WhiteKing = (King)this[5, 1];
                 BlackKing = (King)this[5, 8];
