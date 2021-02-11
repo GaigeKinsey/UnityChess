@@ -56,9 +56,16 @@ public class GameManager : MonoBehaviourSingleton<GameManager> {
 	public string ExportToFEN() => fenInterchanger.Export(game);
 	public string ExportToPGN() => pgnInterchanger.Export(game);
 	public void StartNewGame(int mode) => StartNewGame((Mode) mode); // NOTE Used for binding to UnityEvent response, probably a cleaner way...
+	public void StartNew960Game(int mode) => StartNew960Game((Mode) mode); // NOTE Used for binding to UnityEvent response, probably a cleaner way...
 
 	public void StartNewGame(Mode mode) {
 		game = new Game(mode, GameConditions.NormalStartingConditions);
+		NewGameStarted?.Invoke();
+	}
+
+	public void StartNew960Game(Mode mode)
+	{
+		game = new Game(mode, GameConditions.NormalStartingConditions, true);
 		NewGameStarted?.Invoke();
 	}
 

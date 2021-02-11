@@ -98,6 +98,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager> {
 	public void ResetGameToLastHalfMove() => GameManager.Instance.ResetGameToHalfMoveIndex(GameManager.Instance.HalfMoveTimeline.Span - 1);
 
 	public void StartNewGame(int mode) => GameManager.Instance.StartNewGame(mode);
+	public void StartNew960Game(int mode) => GameManager.Instance.StartNew960Game(mode);
 
 	private void AddMoveToHistory(HalfMove latestHalfMove, Side latestTurnSide) {
 		RemoveAlternateHistory();

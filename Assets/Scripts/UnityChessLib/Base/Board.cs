@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace UnityChess
 {
@@ -31,10 +32,10 @@ namespace UnityChess
         }
 
         /// <summary>Creates a Board with initial chess game position.</summary>
-        public Board()
+        public Board(bool is960 = false)
         {
             boardMatrix = new Piece[8, 8];
-            SetStartingPosition();
+            SetStartingPosition(is960);
         }
 
         /// <summary>Creates a deep copy of the passed Board.</summary>
@@ -71,7 +72,7 @@ namespace UnityChess
         {
             if (is960)
             {
-
+                Debug.LogWarning("960 init");
             }
             else
             {
