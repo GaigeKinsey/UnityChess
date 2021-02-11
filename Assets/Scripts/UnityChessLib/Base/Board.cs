@@ -68,6 +68,102 @@ namespace UnityChess
             BlackKing = null;
         }
 
+        public char[] Generate960Arr()
+        {
+            char[] chess960Arr = new char[8];
+            bool[] takenSquares = new bool[8];
+
+            // Place light bishop
+            int lightBishopSpot = 2 * UnityEngine.Random.Range(0, 4) + 1;
+            chess960Arr[lightBishopSpot] = 'b';
+            takenSquares[lightBishopSpot] = true;
+
+            // Place dark bishop
+            int darkBishopSpot = 2 * UnityEngine.Random.Range(0, 4);
+            chess960Arr[darkBishopSpot] = 'b';
+            takenSquares[darkBishopSpot] = true;
+
+            // Place the queen
+            int[] queenPlaces = new int[6];
+            int queenIter = 0;
+            for (int i = 0; i < takenSquares.Length; i++)
+            {
+                if (!takenSquares[i])
+                {
+                    queenPlaces[queenIter++] = i;
+                }
+            }
+
+            int queenSpot = UnityEngine.Random.Range(0, queenPlaces.Length);
+            chess960Arr[queenPlaces[queenSpot]] = 'q';
+            takenSquares[queenPlaces[queenSpot]] = true;
+
+            // Place the first knight
+            int[] knight1Places = new int[5];
+            int knight1Iter = 0;
+            for (int i = 0; i < takenSquares.Length; i++)
+            {
+                if (!takenSquares[i])
+                {
+                    knight1Places[knight1Iter++] = i;
+                }
+            }
+
+            int knight1Spot = UnityEngine.Random.Range(0, knight1Places.Length);
+            chess960Arr[knight1Places[knight1Spot]] = 'k';
+            takenSquares[knight1Places[knight1Spot]] = true;
+
+            // Place the second knight
+            int[] knight2Places = new int[4];
+            int knight2Iter = 0;
+            for (int i = 0; i < takenSquares.Length; i++)
+            {
+                if (!takenSquares[i])
+                {
+                    knight2Places[knight2Iter++] = i;
+                }
+            }
+
+            int knight2Spot = UnityEngine.Random.Range(0, knight2Places.Length);
+            chess960Arr[knight2Places[knight2Spot]] = 'k';
+            takenSquares[knight2Places[knight2Spot]] = true;
+
+            // Place the first rook
+            for (int i = 0; i < takenSquares.Length; i++)
+            {
+                if (!takenSquares[i])
+                {
+                    chess960Arr[i] = 'r';
+                    takenSquares[i] = true;
+                    break;
+                }
+            }
+
+            // Place the second rook
+            for (int i = takenSquares.Length-1; i >= 0; i--)
+            {
+                if (!takenSquares[i])
+                {
+                    chess960Arr[i] = 'r';
+                    takenSquares[i] = true;
+                    break;
+                }
+            }
+
+            // Place the king
+            for (int i = 0; i < takenSquares.Length; i++)
+            {
+                if (!takenSquares[i])
+                {
+                    chess960Arr[i] = 'K';
+                    takenSquares[i] = true;
+                    break;
+                }
+            }
+
+            return chess960Arr;
+        }
+
         public void SetStartingPosition(bool is960 = false)
         {
             ClearBoard();
@@ -85,6 +181,8 @@ namespace UnityChess
 
             if (is960)
             {
+                char[] randomOrder = Generate960Arr();
+
                 //Rows 1 & 8/Ranks 8 & 1, back rows for both players
                 for (int file = 1; file <= 8; file++)
                 {
@@ -93,7 +191,7 @@ namespace UnityChess
                         Square position = new Square(file, rank);
                         Side pieceColor = rank == 1 ? Side.White : Side.Black;
 
-                        
+
                     }
                 }
             }
