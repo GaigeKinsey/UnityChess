@@ -191,8 +191,27 @@ namespace UnityChess
                         Square position = new Square(file, rank);
                         Side pieceColor = rank == 1 ? Side.White : Side.Black;
 
-
-                    }
+						switch (randomOrder[file - 1])
+						{
+                            case 'r':
+                                this[position] = new Rook(position, pieceColor);
+                                break;
+                            case 'b':
+                                this[position] = new Bishop(position, pieceColor);
+                                break;
+                            case 'k':
+                                this[position] = new Knight(position, pieceColor);
+                                break;
+                            case 'q':
+                                this[position] = new Queen(position, pieceColor);
+                                break;
+                            case 'K':
+                                this[position] = new King(position, pieceColor);
+                                if (pieceColor is Side.White) WhiteKing = (King)this[position];
+                                else BlackKing = (King)this[position];
+                                break;
+                        }
+					}
                 }
             }
             else
