@@ -68,6 +68,10 @@ namespace UnityChess
             BlackKing = null;
         }
 
+        /// <summary>
+        /// Creates a random array of characters representing the order of the back line, based on the rules of chess960 defined on the wiki
+        /// </summary>
+        /// <returns>A char array representing the order of the back line</returns>
         public char[] Generate960Arr()
         {
             char[] chess960Arr = new char[8];
@@ -164,6 +168,10 @@ namespace UnityChess
             return chess960Arr;
         }
 
+        /// <summary>
+        /// Resets the board and resets the position of all the pieces, will do a fischer random setup when passed 'true'
+        /// </summary>
+        /// <param name="is960"></param>
         public void SetStartingPosition(bool is960 = false)
         {
             ClearBoard();
